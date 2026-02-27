@@ -52,7 +52,7 @@ TEST_CASE("Example: Create a new account", "[ex-1]") {
 
   
   atm.RegisterAccount(445566, 8888, "Steph Curry", 330.30);
-  auto accounts = atm.GetAccounts();
+  accounts = atm.GetAccounts();
   REQUIRE(accounts.contains({445566, 8888}));
   REQUIRE(accounts.size() == 2);
 
@@ -60,10 +60,9 @@ TEST_CASE("Example: Create a new account", "[ex-1]") {
   REQUIRE(steph_account.owner_name == "Steph Curry");
   REQUIRE(steph_account.balance == 330.30);
 
-  auto transactions = atm.GetTransactions();
+  transactions = atm.GetTransactions();
   REQUIRE(accounts.contains({445566, 8888}));
   REQUIRE(accounts.size() == 2);
-  std::vector<std::string> empty;
   REQUIRE(transactions[{445566, 8888}] == empty);
   
   REQUIRE_THROWS(atm.RegisterAccount(12345678, 1234, "dupe", 734.23));
