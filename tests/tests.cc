@@ -49,19 +49,52 @@ TEST_CASE("Example: Create a new account", "[ex-1]") {
   REQUIRE(accounts.size() == 1);
   std::vector<std::string> empty;
   REQUIRE(transactions[{12345678, 1234}] == empty);
+
+  REQUIRE_THROWS(atm.RegisterAccount(12345678, 1234, "dupe", 734.23));
 }
 
-TEST_CASE("Example: Simple widthdraw", "[ex-2]") {
+TEST_CASE("Example: Simple withdraw", "[ex-2]") {
   Atm atm;
   atm.RegisterAccount(12345678, 1234, "Sam Sepiol", 300.30);
   atm.WithdrawCash(12345678, 1234, 20);
   auto accounts = atm.GetAccounts();
   Account sam_account = accounts[{12345678, 1234}];
-
   REQUIRE(sam_account.balance == 280.30);
+  
+  auto transactions = atm.GetTransactions();
+  std::vector<std::string> v = {"Withdrew 20"};
+  REQUIRE(transactions[{12345678, 1234}] == v);
+
+  atm.WithdrawCash(12345678, 1234, 10);
+  auto accounts = atm.GetAccounts();
+  Account sam_account = accounts[{12345678, 1234}];
+  REQUIRE(sam_account.balance == 270.30);
+  auto transactions = atm.GetTransactions();
+  v = {"Withdrew 20", "Withdrew 10"};
+  REQUIRE(transactions[{12345678, 1234}] == v);
+
+  REQUIRE_THROWS(atm.WithdrawCash(239043, 3932, 40));
+  REQUIRE_THROWS(atm.WithdrawCash(12345678, 1234, -10));
+  REQUIRE_THROWS(atm.WithdrawCash(12345678, 1234, 300));
 }
 
-TEST_CASE("Example: Print Prompt Ledger", "[ex-3]") {
+TEST_CASE("Example: Simple deposit", "[ex-3]") {
+  Atm atm;
+  atm.RegisterAccount(12345678, 1234, "Sam Sepiol", 300.30);
+  atm.DepositCash(12345678, 1234, 20);
+  auto accounts = atm.GetAccounts();
+  Account sam_account = accounts[{12345678, 1234}];
+  REQUIRE(sam_account.balance == 320.30);
+
+  auto transactions = atm.GetTransactions();
+  std::vector<std::string> v = {"Deposit 20"};
+  REQUIRE(transactions[{12345678, 1234}] == v);
+
+  REQUIRE_THROWS(atm.DepositCash(239043, 3932, 40));
+  REQUIRE_THROWS(atm.DepositCash(12345678, 1234, -10));
+}
+
+TEST_CASE("Example: Print Prompt Ledger", "[ex-4]") {
   Atm atm;
   atm.RegisterAccount(12345678, 1234, "Sam Sepiol", 300.30);
   auto& transactions = atm.GetTransactions();
@@ -73,4 +106,5 @@ TEST_CASE("Example: Print Prompt Ledger", "[ex-3]") {
       "Deposit - Amount: $32000.00, Updated Balance: $72099.90");
   atm.PrintLedger("./prompt.txt", 12345678, 1234);
   REQUIRE(CompareFiles("./ex-1.txt", "./prompt.txt"));
+  REQUIRE_THROWS(atm.PrintLedger("./prompt.txt", 397432, 9640));
 }
