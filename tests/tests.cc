@@ -66,10 +66,10 @@ TEST_CASE("Example: Simple withdraw", "[ex-2]") {
   REQUIRE(transactions[{12345678, 1234}] == v);
 
   atm.WithdrawCash(12345678, 1234, 10);
-  auto accounts = atm.GetAccounts();
-  Account sam_account = accounts[{12345678, 1234}];
+  accounts = atm.GetAccounts();
+  sam_account = accounts[{12345678, 1234}];
   REQUIRE(sam_account.balance == 270.30);
-  auto transactions = atm.GetTransactions();
+  transactions = atm.GetTransactions();
   v = {"Withdrew 20", "Withdrew 10"};
   REQUIRE(transactions[{12345678, 1234}] == v);
 
@@ -106,6 +106,6 @@ TEST_CASE("Example: Print Prompt Ledger", "[ex-4]") {
       "Deposit - Amount: $32000.00, Updated Balance: $72099.90");
   atm.PrintLedger("./prompt.txt", 12345678, 1234);
   REQUIRE(CompareFiles("./ex-1.txt", "./prompt.txt"));
-  
+
   REQUIRE_THROWS(atm.PrintLedger("./prompt.txt", 397432, 9640));
 }
