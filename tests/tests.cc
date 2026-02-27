@@ -50,7 +50,25 @@ TEST_CASE("Example: Create a new account", "[ex-1]") {
   std::vector<std::string> empty;
   REQUIRE(transactions[{12345678, 1234}] == empty);
 
+  
+  atm.RegisterAccount(445566, 8888, "Steph Curry", 330.30);
+  auto accounts = atm.GetAccounts();
+  REQUIRE(accounts.contains({445566, 8888}));
+  REQUIRE(accounts.size() == 2);
+
+  Account steph_account = accounts[{445566, 8888}];
+  REQUIRE(steph_account.owner_name == "Steph Curry");
+  REQUIRE(steph_account.balance == 330.30);
+
+  auto transactions = atm.GetTransactions();
+  REQUIRE(accounts.contains({445566, 8888}));
+  REQUIRE(accounts.size() == 2);
+  std::vector<std::string> empty;
+  REQUIRE(transactions[{445566, 8888}] == empty);
+  
   REQUIRE_THROWS(atm.RegisterAccount(12345678, 1234, "dupe", 734.23));
+  REQUIRE_THROWS(atm.RegisterAccount(445566, 8888, "dupe2", 345.09));
+
 }
 
 TEST_CASE("Example: Simple withdraw", "[ex-2]") {
