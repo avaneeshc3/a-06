@@ -106,5 +106,6 @@ TEST_CASE("Example: Print Prompt Ledger", "[ex-4]") {
       "Deposit - Amount: $32000.00, Updated Balance: $72099.90");
   atm.PrintLedger("./prompt.txt", 12345678, 1234);
   REQUIRE(CompareFiles("./ex-1.txt", "./prompt.txt"));
+  
   REQUIRE_THROWS(atm.PrintLedger("./prompt.txt", 397432, 9640));
 }
