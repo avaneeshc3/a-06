@@ -1,12 +1,24 @@
-1. Your test suite did not perform as expected.
-HINT: Review the function descriptions to ensure all of your test cases are accurate.
+Your test suite did not compile!
 
-2. Your test suite properly identified an incorrect solution!
+tests/tests.cc:55:8: error: redefinition of 'accounts'
+   55 |   auto accounts = atm.GetAccounts();
+      |        ^
+tests/tests.cc:39:8: note: previous definition is here
+   39 |   auto accounts = atm.GetAccounts();
+      |        ^
+tests/tests.cc:63:8: error: redefinition of 'transactions'
+   63 |   auto transactions = atm.GetTransactions();
+      |        ^
+tests/tests.cc:47:8: note: previous definition is here
+   47 |   auto transactions = atm.GetTransactions();
+      |        ^
+tests/tests.cc:66:28: error: redefinition of 'empty'
+   66 |   std::vector<std::string> empty;
+      |                            ^
+tests/tests.cc:50:28: note: previous definition is here
+   50 |   std::vector<std::string> empty;
+      |                            ^
+3 errors generated.
 
-3. Your test suite properly identified an incorrect solution!
 
-4. Your test suite properly identified an incorrect solution!
-
-5. Your test suite properly identified an incorrect solution!
-
-score: 4/5
+score: 0/5
