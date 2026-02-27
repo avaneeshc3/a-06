@@ -1,0 +1,24 @@
+Your test suite did not compile!
+
+tests/tests.cc:69:8: error: redefinition of 'accounts'
+   69 |   auto accounts = atm.GetAccounts();
+      |        ^
+tests/tests.cc:60:8: note: previous definition is here
+   60 |   auto accounts = atm.GetAccounts();
+      |        ^
+tests/tests.cc:70:11: error: redefinition of 'sam_account'
+   70 |   Account sam_account = accounts[{12345678, 1234}];
+      |           ^
+tests/tests.cc:61:11: note: previous definition is here
+   61 |   Account sam_account = accounts[{12345678, 1234}];
+      |           ^
+tests/tests.cc:72:8: error: redefinition of 'transactions'
+   72 |   auto transactions = atm.GetTransactions();
+      |        ^
+tests/tests.cc:64:8: note: previous definition is here
+   64 |   auto transactions = atm.GetTransactions();
+      |        ^
+3 errors generated.
+
+
+score: 0/5
