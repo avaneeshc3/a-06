@@ -107,6 +107,7 @@ TEST_CASE("Example: Simple deposit", "[ex-3]") {
   std::vector<std::string> v = {"Deposit 20"};
   REQUIRE(transactions[{12345678, 1234}] == v);
 
+  
   REQUIRE_THROWS_AS(atm.DepositCash(239043, 3932, 40), std::invalid_argument);
   REQUIRE_THROWS_AS(atm.DepositCash(12345678, 1234, -10), std::invalid_argument);
 }
