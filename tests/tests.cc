@@ -107,7 +107,7 @@ TEST_CASE("Example: Simple deposit", "[ex-3]") {
   std::vector<std::string> v = {"Deposit 20"};
   REQUIRE(transactions[{12345678, 1234}] == v);
 
-  
+
   REQUIRE_THROWS_AS(atm.DepositCash(239043, 3932, 40), std::invalid_argument);
   REQUIRE_THROWS_AS(atm.DepositCash(12345678, 1234, -10), std::invalid_argument);
 }
@@ -125,5 +125,6 @@ TEST_CASE("Example: Print Prompt Ledger", "[ex-4]") {
   atm.PrintLedger("./prompt.txt", 12345678, 1234);
   REQUIRE(CompareFiles("./ex-1.txt", "./prompt.txt"));
 
+  
   REQUIRE_THROWS_AS(atm.PrintLedger("./prompt.txt", 397432, 9640), std::invalid_argument);
 }
